@@ -106,6 +106,7 @@ def add_to_list(request):
         return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
 
+@login_required(login_url='login')
 def my_list(request):
     movie_list = MovieList.objects.filter(owner_movie=request.user)
     user_movie_list = []
@@ -119,6 +120,7 @@ def my_list(request):
     return render(request, "my_list.html", context)
 
 
+@login_required(login_url='login')
 def search(request):
     if request.method == "POST":
         search_term = request.POST["search_term"]
@@ -133,6 +135,7 @@ def search(request):
         return redirect("/")
 
 
+@login_required(login_url='login')
 def genre(request, pk):
     movie_genre = pk
     movies = Movie.objects.filter(genre=movie_genre)
